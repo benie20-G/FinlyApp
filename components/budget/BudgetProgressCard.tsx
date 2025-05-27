@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   category: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#1C1C1E',
+    color: '#ffff',
     marginBottom: 8,
   },
   amountsRow: {
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   currentAmount: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#1C1C1E',
+    color: '#ffff',
   },
   limitAmount: {
     fontSize: 14,

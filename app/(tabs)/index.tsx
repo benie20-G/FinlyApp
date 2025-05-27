@@ -14,7 +14,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { PieChart, LineChart } from 'react-native-chart-kit';
 import { formatCurrency } from '@/utils/formatters';
 import { Dimensions } from 'react-native';
-import { CircleAlert as AlertCircle, TrendingUp, TrendingDown, DollarSign, Bell } from 'lucide-react-native';
+import { CircleAlert as AlertCircle, TrendingUp, TrendingDown, DollarSign, Bell, NotebookText } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
 import ExpenseSummaryCard from '@/components/expense/ExpenseSummaryCard';
 import BudgetProgressCard from '@/components/budget/BudgetProgressCard';
@@ -43,8 +43,11 @@ export default function DashboardScreen() {
 
   useEffect(() => {
     if (expenses.length > 0) {
-      // Calculate total spent
-      const total = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
+      // Calculate total spent (ignore invalid numbers)
+      const total = expenses.reduce((sum, expense) => {
+        const amount = Number(expense.amount);
+        return !isNaN(amount) ? sum + amount : sum;
+      }, 0);
       setTotalSpent(total);
 
       // Process category data for pie chart
@@ -120,8 +123,7 @@ export default function DashboardScreen() {
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={Colors.primary} />
         <Text style={styles.loadingText}>Loading your financial data...</Text>
-      </View>
-    );
+      </View>)
   }
 
   // Find most expensive category
@@ -167,7 +169,15 @@ export default function DashboardScreen() {
       <View style={styles.summaryContainer}>
         <ExpenseSummaryCard 
           title="Highest Expense"
-          amount={expenses.length > 0 ? Math.max(...expenses.map(e => parseFloat(e.amount))) : 0}
+          amount={
+            expenses.length > 0
+              ? Math.max(
+                  ...expenses
+                    .map(e => parseFloat(e.amount))
+                    .filter(amount => !isNaN(amount))
+                )
+              : 0
+          }
           icon={<TrendingUp size={20} color="#34C759" />}
           color="#1E1E1E"
           textColor="#34C759"
@@ -175,7 +185,7 @@ export default function DashboardScreen() {
         <ExpenseSummaryCard 
           title="Average Expense"
           amount={expenses.length > 0 ? totalSpent / expenses.length : 0}
-          icon={<DollarSign size={20} color="#34C759" />}
+          icon={<NotebookText size={20} color="#34C759" />}
           color="#1E1E1E"
           textColor="#34C759"
         />
@@ -236,23 +246,47 @@ export default function DashboardScreen() {
         ))}
       </View>
 
-      {showNotifications && (
-        <>
-          <BlurView intensity={60} tint="dark" style={{ ...StyleSheet.absoluteFillObject, zIndex: 99 }} />
-          <View style={{ position: 'absolute', top: 60, right: 20, backgroundColor: '#23242A', borderRadius: 12, padding: 16, zIndex: 100, width: 280 }}>
-            <Text style={{ color: '#34C759', fontWeight: 'bold', fontSize: 16, marginBottom: 8 }}>Notifications</Text>
-            {dummyNotifications.map(n => (
-              <Text key={n.id} style={{ color: '#FFFFFF', marginBottom: 6 }}>{n.text}</Text>
-            ))}
-            <TouchableOpacity onPress={() => setShowNotifications(false)} style={{ marginTop: 8, alignSelf: 'flex-end' }}>
-              <Text style={{ color: '#34C759', fontWeight: 'bold' }}>Close</Text>
-            </TouchableOpacity>
-          </View>
-        </>
-      )}
+    {showNotifications && (
+      <>
+        <View
+          
+        >
+          <BlurView
+        intensity={100}
+        tint="light"
+          />
+        </View>
+        <View
+          style={{
+        position: 'absolute',
+        top: 80,
+        right: 20,
+        backgroundColor: '#23242A',
+        borderRadius: 12,
+        padding: 16,
+        zIndex: 100,
+        width: 280,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 10,
+          }}
+        >
+          <Text style={{ color: '#34C759', fontWeight: 'bold', fontSize: 16, marginBottom: 8 }}>Notifications</Text>
+          {dummyNotifications.map(n => (
+        <Text key={n.id} style={{ color: '#FFFFFF', marginBottom: 6 }}>{n.text}</Text>
+          ))}
+          <TouchableOpacity onPress={() => setShowNotifications(false)} style={{ marginTop: 8, alignSelf: 'flex-end' }}>
+        <Text style={{ color: '#34C759', fontWeight: 'bold' }}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </>
+    )}
     </ScrollView>
   );
 }
+
 
 function getCategoryColor(category: string): string {
   const categoryColors: { [key: string]: string } = {
