@@ -1,0 +1,30 @@
+API ENDPOINTS
+
+1. Authentication Endpoints:
+GET /api/v1/users?username={email}
+
+2. Expense Endpoints:
+GET /api/v1/expenses
+POST /api/v1/expenses
+GET /api/v1/expenses/{id}
+PUT /api/v1/expenses/{id}
+DELETE /api/v1/expenses/{id}
+
+3. Budget Endpoints:
+GET /api/v1/budgets
+POST /api/v1/budgets
+GET /api/v1/budgets/{id}
+PUT /api/v1/budgets/{id}
+DELETE /api/v1/budgets/{id}
+
+4. Category Endpoints:
+GET /api/v1/categories
+
+5. User Profile Endpoints:
+GET /api/v1/users/{id}
+PUT /api/v1/users/{id}
+
+6. Dashboard Endpoints:
+GET /api/v1/dashboard/summary
+GET /api/v1/dashboard/expenses
+GET /api/v1/dashboard/budgets 
