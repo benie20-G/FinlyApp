@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { Platform } from 'react-native';
-import { LayoutDashboard, Receipt, PlusCircle, Wallet, User } from 'lucide-react-native';
+import { LayoutDashboard, Notebook, PlusCircle, Wallet, User } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
 
 export default function TabLayout() {
@@ -50,7 +50,7 @@ export default function TabLayout() {
         name="expenses/index"
         options={{
           title: 'Expenses',
-          tabBarIcon: ({ color }) => <Receipt size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Notebook size={24} color={color} />,
           headerTitle: 'Expenses',
         }}
       />

@@ -82,7 +82,7 @@ export default function EditExpenseScreen() {
       <TextInput
         value={form.name}
         onChangeText={(text) => handleChange('name', text)}
-        style={styles.input}
+        style={[styles.input, { color: '#FFFFFF' }]}
         placeholder="Enter name"
       />
 
@@ -90,7 +90,7 @@ export default function EditExpenseScreen() {
       <TextInput
         value={form.amount}
         onChangeText={(text) => handleChange('amount', text)}
-        style={styles.input}
+        style={[styles.input, { color: '#FFFFFF' }]}
         placeholder="Enter amount"
         keyboardType="decimal-pad"
       />
@@ -107,7 +107,7 @@ export default function EditExpenseScreen() {
       <TextInput
         value={form.description}
         onChangeText={(text) => handleChange('description', text)}
-        style={[styles.input, { height: 80 }]}
+        style={[styles.input, { height: 80, color: '#FFFFFF' }]}
         placeholder="Optional"
         multiline
       />
@@ -117,7 +117,9 @@ export default function EditExpenseScreen() {
         onPress={() => setShowDatePicker(true)}
         style={styles.dateButton}
       >
-        <Text>{form.createdAt.toDateString()}</Text>
+        <Text style={[styles.dateText, { color: '#FFFFFF' }]}>
+          {form.createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </Text>
       </TouchableOpacity>
 
       {showDatePicker && (
@@ -178,5 +180,9 @@ const styles = StyleSheet.create({
     color: '#181A20',
     fontWeight: '600',
     fontSize: 16,
+  },
+  dateText: {
+    fontSize: 16,
+    fontWeight: '500',
   },
 });

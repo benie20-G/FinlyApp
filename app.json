@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Expense Tracker",
-    "slug": "Expense Tracker",
+    "name": "Finly Personal Finance App",
+    "slug": "Finly Personal Finance App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

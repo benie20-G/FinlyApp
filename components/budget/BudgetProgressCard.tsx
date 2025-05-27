@@ -41,7 +41,7 @@ export default function BudgetProgressCard({ budget }: BudgetProgressCardProps) 
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#23242A',
     borderRadius: 12,
     padding: 16,
     marginHorizontal: 8,

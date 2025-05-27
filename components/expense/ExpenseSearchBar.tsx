@@ -26,6 +26,7 @@ export default function ExpenseSearchBar({
         <TextInput
           style={styles.input}
           placeholder="Search expenses..."
+          placeholderTextColor="#8E8E93"
           value={searchQuery}
           onChangeText={setSearchQuery}
           autoCapitalize="none"
@@ -45,14 +46,14 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
     paddingBottom: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#181A20',
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
+    borderBottomColor: '#23242A',
   },
   searchBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#23242A',
     borderRadius: 10,
     paddingHorizontal: 12,
   },
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     fontSize: 16,
-    color: '#1C1C1E',
+    color: '#FFFFFF',
   },
   clearButton: {
     padding: 4,

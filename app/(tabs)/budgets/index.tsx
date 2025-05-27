@@ -14,10 +14,12 @@ import { CirclePlus as PlusCircle, CircleAlert as AlertCircle } from 'lucide-rea
 import Colors from '@/constants/Colors';
 import EmptyState from '@/components/ui/EmptyState';
 import ProgressBar from '@/components/ui/ProgressBar';
+import { useRouter } from 'expo-router';
 
 export default function BudgetsScreen() {
   const { budgets, isLoading, error } = useBudgets();
   const [refreshing, setRefreshing] = useState(false);
+  const router = useRouter();
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -142,7 +144,7 @@ export default function BudgetsScreen() {
         />
       )}
       
-      <TouchableOpacity style={styles.addButton} onPress={() => {}}>
+      <TouchableOpacity style={styles.addButton} onPress={() => router.push('/budgets/new')}>
         <PlusCircle size={24} color="#FFFFFF" />
       </TouchableOpacity>
     </View>

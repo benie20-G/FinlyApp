@@ -11,7 +11,7 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useExpenses } from '@/hooks/useExpenses';
 import { formatCurrency, formatDate } from '@/utils/formatters';
-import { Calendar, DollarSign, CircleAlert as AlertCircle, Trash2, CreditCard as Edit } from 'lucide-react-native';
+import { Calendar, DollarSign, CircleAlert as AlertCircle, Trash2, Pen } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
 
 export default function ExpenseDetailScreen() {
@@ -153,7 +153,7 @@ export default function ExpenseDetailScreen() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
-          <Edit size={20} color="#FFFFFF" />
+          <Pen size={20} color="#FFFFFF" />
           <Text style={styles.buttonText}>Edit</Text>
         </TouchableOpacity>
       </View>
@@ -180,25 +180,25 @@ function getCategoryColor(category: string, opacity: number = 1): string {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#181A20',
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#181A20',
   },
   loadingText: {
     marginTop: 16,
     fontSize: 16,
-    color: '#8E8E93',
+    color: '#CCCCCC',
   },
   errorContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
-    backgroundColor: '#F2F2F7',
+    backgroundColor: '#181A20',
   },
   errorIcon: {
     marginBottom: 16,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 18,
     fontWeight: '500',
-    color: '#1C1C1E',
+    color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: 24,
   },
@@ -223,13 +223,14 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
+    backgroundColor: '#181A20',
   },
   header: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#23242A',
     paddingVertical: 24,
     paddingHorizontal: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E5EA',
+    borderBottomColor: '#23242A',
     alignItems: 'center',
   },
   amountContainer: {
@@ -244,19 +245,21 @@ const styles = StyleSheet.create({
   amountValue: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#1C1C1E',
+    color: '#FFFFFF',
   },
   categoryBadge: {
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 16,
+    backgroundColor: '#2C2C2E',
   },
   categoryText: {
     fontSize: 14,
     fontWeight: '600',
+    color: '#8E8E93',
   },
   detailsCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#23242A',
     margin: 16,
     borderRadius: 12,
     padding: 16,
@@ -269,7 +272,7 @@ const styles = StyleSheet.create({
   detailsTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#1C1C1E',
+    color: '#FFFFFF',
     marginBottom: 16,
   },
   detailRow: {
@@ -278,7 +281,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#F2F2F7',
+    borderBottomColor: '#23242A',
   },
   detailLabel: {
     fontSize: 16,
@@ -287,7 +290,7 @@ const styles = StyleSheet.create({
   detailValue: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#1C1C1E',
+    color: '#FFFFFF',
   },
   dateContainer: {
     flexDirection: 'row',
@@ -302,36 +305,41 @@ const styles = StyleSheet.create({
   descriptionText: {
     fontSize: 16,
     lineHeight: 24,
-    color: '#1C1C1E',
+    color: '#FFFFFF',
     marginTop: 8,
   },
   footer: {
     flexDirection: 'row',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#23242A',
     padding: 16,
     borderTopWidth: 1,
-    borderTopColor: '#E5E5EA',
+    borderTopColor: '#23242A',
   },
   deleteButton: {
+    flex: 1,
     backgroundColor: '#FF453A',
     borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
+    padding: 16,
     alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    marginRight: 12,
+    marginRight: 8,
+  },
+  deleteText: {
+    color: '#FFFFFF',
+    fontWeight: '600',
+    fontSize: 16,
   },
   editButton: {
-    backgroundColor: '#0A84FF',
-    borderRadius: 12,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
     flex: 1,
+    backgroundColor: '#34C759',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    marginLeft: 8,
+  },
+  editText: {
+    color: '#FFFFFF',
+    fontWeight: '600',
+    fontSize: 16,
   },
   buttonText: {
     color: '#FFFFFF',

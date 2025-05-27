@@ -14,12 +14,12 @@ import { useRouter } from 'expo-router';
 import { useAuth } from '@/hooks/useAuth';
 import { validateEmail } from '@/utils/validation';
 import { Lock, Mail, CircleAlert as AlertCircle } from 'lucide-react-native';
-import axios from 'axios';
+import api from '@/services/api';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
+  const [usernameError, setUsernameError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { login, user } = useAuth();
@@ -34,15 +34,12 @@ export default function LoginScreen() {
   const validateForm = () => {
     let isValid = true;
 
-    // Email validation
-    if (!email) {
-      setEmailError('Email is required');
-      isValid = false;
-    } else if (!validateEmail(email)) {
-      setEmailError('Please enter a valid email');
+    // Username validation
+    if (!username) {
+      setUsernameError('Username is required');
       isValid = false;
     } else {
-      setEmailError('');
+      setUsernameError('');
     }
 
     // Password validation
@@ -64,13 +61,12 @@ export default function LoginScreen() {
 
     setIsLoading(true);
     try {
-      // Check credentials against the API
-      const response = await axios.get(`/api/va/users?username=${email}`);
-      
+      // Use the correct field name: username
+      const response = await api.get(`/users?username=${username}`);
       if (response.data && response.data.length > 0) {
         const user = response.data[0];
         if (password === user.password) {
-          await login(email, password);
+          await login(username, password);
         } else {
           Alert.alert(
             'Invalid Credentials',
@@ -81,7 +77,7 @@ export default function LoginScreen() {
       } else {
         Alert.alert(
           'Account Not Found',
-          'No account found with this email address. Please check your email or sign up.',
+          'No account found with this username. Please check your username or sign up.',
           [{ text: 'OK' }]
         );
       }
@@ -114,18 +110,17 @@ export default function LoginScreen() {
           <Mail size={20} color="#34C759" style={styles.inputIcon} />
           <TextInput
             style={styles.input}
-            placeholder="Email"
+            placeholder="Username"
             placeholderTextColor="#8E8E93"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
+            value={username}
+            onChangeText={setUsername}
             autoCapitalize="none"
           />
         </View>
-        {emailError ? (
+        {usernameError ? (
           <View style={styles.errorContainer}>
             <AlertCircle size={16} color="#FF453A" />
-            <Text style={styles.errorText}>{emailError}</Text>
+            <Text style={styles.errorText}>{usernameError}</Text>
           </View>
         ) : null}
 

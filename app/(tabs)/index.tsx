@@ -14,11 +14,12 @@ import { useAuth } from '@/hooks/useAuth';
 import { PieChart, LineChart } from 'react-native-chart-kit';
 import { formatCurrency } from '@/utils/formatters';
 import { Dimensions } from 'react-native';
-import { CircleAlert as AlertCircle, TrendingUp, TrendingDown, DollarSign } from 'lucide-react-native';
+import { CircleAlert as AlertCircle, TrendingUp, TrendingDown, DollarSign, Bell } from 'lucide-react-native';
 import Colors from '@/constants/Colors';
 import ExpenseSummaryCard from '@/components/expense/ExpenseSummaryCard';
 import BudgetProgressCard from '@/components/budget/BudgetProgressCard';
 import { useRouter } from 'expo-router';
+import { BlurView } from 'expo-blur';
 const screenWidth = Dimensions.get('window').width;
 
 export default function DashboardScreen() {
@@ -33,6 +34,12 @@ export default function DashboardScreen() {
     labels: [],
     datasets: [{ data: [] }],
   });
+  const [showNotifications, setShowNotifications] = useState(false);
+  const dummyNotifications = [
+    { id: 1, text: 'Your Food budget is 90% used.' },
+    { id: 2, text: 'New expense added: RWF 5,000.' },
+    { id: 3, text: 'You have 3 budgets expiring soon.' },
+  ];
 
   useEffect(() => {
     if (expenses.length > 0) {
@@ -142,15 +149,14 @@ export default function DashboardScreen() {
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <View style={styles.header}>
-        <Text style={[styles.greeting, { color: '#FFFFFF' }]}>Hello, {user?.name || 'User'}</Text>
-        <Text style={[styles.date, { color: '#CCCCCC' }]}>
-          {new Date().toLocaleDateString('en-US', { 
-            weekday: 'long', 
-            month: 'long', 
-            day: 'numeric' 
-          })}
-        </Text>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 24, paddingTop: 16 }}>
+        <View>
+          <Text style={[styles.greeting, { color: '#FFFFFF' }]}>Hello, {user?.name || 'User'}</Text>
+          <Text style={[styles.date, { color: '#CCCCCC' }]}>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</Text>
+        </View>
+        <TouchableOpacity onPress={() => setShowNotifications(true)}>
+          <Bell size={28} color="#34C759" />
+        </TouchableOpacity>
       </View>
 
       <View style={[styles.balanceCard, { backgroundColor: '#1E1E1E' }]}>
@@ -202,38 +208,6 @@ export default function DashboardScreen() {
         </View>
       )}
 
-      {categoryData.length > 0 && (
-        <View style={styles.chartContainer}>
-          <Text style={styles.sectionTitle}>Spending by Category</Text>
-          <View style={styles.chartCard}>
-            <PieChart
-              data={categoryData}
-              width={screenWidth - 48}
-              height={200}
-              chartConfig={{
-                backgroundGradientFrom: '#FFFFFF',
-                backgroundGradientTo: '#FFFFFF',
-                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-              }}
-              accessor="amount"
-              backgroundColor="transparent"
-              paddingLeft="15"
-              center={[10, 0]}
-              absolute
-            />
-          </View>
-          
-          <View style={styles.insightCard}>
-            <TrendingUp size={20} color="#0A84FF" style={styles.insightIcon} />
-            <Text style={styles.insightText}>
-              Your highest spending category is{' '}
-              <Text style={styles.insightHighlight}>{maxCategory.name}</Text> at{' '}
-              <Text style={styles.insightHighlight}>{formatCurrency(maxCategory.amount)}</Text>
-            </Text>
-          </View>
-        </View>
-      )}
-
       <View style={styles.recentExpensesContainer}>
         <View style={styles.recentExpensesHeader}>
           <Text style={styles.sectionTitle}>Recent Expenses</Text>
@@ -261,6 +235,21 @@ export default function DashboardScreen() {
           </View>
         ))}
       </View>
+
+      {showNotifications && (
+        <>
+          <BlurView intensity={60} tint="dark" style={{ ...StyleSheet.absoluteFillObject, zIndex: 99 }} />
+          <View style={{ position: 'absolute', top: 60, right: 20, backgroundColor: '#23242A', borderRadius: 12, padding: 16, zIndex: 100, width: 280 }}>
+            <Text style={{ color: '#34C759', fontWeight: 'bold', fontSize: 16, marginBottom: 8 }}>Notifications</Text>
+            {dummyNotifications.map(n => (
+              <Text key={n.id} style={{ color: '#FFFFFF', marginBottom: 6 }}>{n.text}</Text>
+            ))}
+            <TouchableOpacity onPress={() => setShowNotifications(false)} style={{ marginTop: 8, alignSelf: 'flex-end' }}>
+              <Text style={{ color: '#34C759', fontWeight: 'bold' }}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
     </ScrollView>
   );
 }

@@ -83,6 +83,7 @@ export default function NewExpenseScreen() {
             <TextInput
               style={[styles.input, titleError ? styles.inputError : null]}
               placeholder="e.g., Grocery Shopping"
+              placeholderTextColor="#8E8E93"
               value={title}
               onChangeText={(text) => {
                 setTitle(text);
@@ -109,7 +110,8 @@ export default function NewExpenseScreen() {
               <DollarSign size={20} color="#8E8E93" style={styles.amountIcon} />
               <TextInput
                 style={styles.amountInput}
-                placeholder="0.00"
+                placeholder="0"
+                placeholderTextColor="#8E8E93"
                 keyboardType="decimal-pad"
                 value={amount}
                 onChangeText={(text) => {

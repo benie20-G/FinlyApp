@@ -62,7 +62,7 @@ export default function ProfileScreen() {
           <Switch
             value={notificationsEnabled}
             onValueChange={setNotificationsEnabled}
-            trackColor={{ false: '#E5E5EA', true: '#0A84FF' }}
+            trackColor={{ false: '#E5E5EA', true: '#34C759' }}
             thumbColor="#FFFFFF"
           />
         </View>
@@ -75,7 +75,7 @@ export default function ProfileScreen() {
           <Switch
             value={isDarkMode}
             onValueChange={setIsDarkMode}
-            trackColor={{ false: '#E5E5EA', true: '#0A84FF' }}
+            trackColor={{ false: '#E5E5EA', true: '#34C759' }}
             thumbColor="#FFFFFF"
           />
         </View>

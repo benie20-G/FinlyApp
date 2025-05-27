@@ -143,6 +143,7 @@ export default function ExpenseFilterModal({
                   <TextInput
                     style={styles.amountInput}
                     placeholder="Min"
+                    placeholderTextColor="#8E8E93"
                     keyboardType="decimal-pad"
                     value={localFilters.minAmount}
                     onChangeText={(text) => setLocalFilters({...localFilters, minAmount: text})}
@@ -156,6 +157,7 @@ export default function ExpenseFilterModal({
                   <TextInput
                     style={styles.amountInput}
                     placeholder="Max"
+                    placeholderTextColor="#8E8E93"
                     keyboardType="decimal-pad"
                     value={localFilters.maxAmount}
                     onChangeText={(text) => setLocalFilters({...localFilters, maxAmount: text})}
